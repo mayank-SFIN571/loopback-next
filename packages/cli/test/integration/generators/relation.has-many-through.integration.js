@@ -97,6 +97,7 @@ describe('lb4 relation HasManyThrough', /** @this {Mocha.Suite} */ function () {
         destinationModel: 'Patient',
         throughModel: 'Appointment',
         relationName: 'myPatients',
+        registerInclusionResolver: true,
       },
     ];
 
@@ -147,6 +148,7 @@ describe('lb4 relation HasManyThrough', /** @this {Mocha.Suite} */ function () {
         destinationModel: 'Patient',
         throughModel: 'Appointment',
         sourceKeyOnThrough: 'customKeyFrom',
+        registerInclusionResolver: true,
       },
       {
         relationType: 'hasManyThrough',
@@ -154,6 +156,7 @@ describe('lb4 relation HasManyThrough', /** @this {Mocha.Suite} */ function () {
         destinationModel: 'Patient',
         throughModel: 'Appointment',
         targetKeyOnThrough: 'customKeyTo',
+        registerInclusionResolver: true,
       },
       {
         relationType: 'hasManyThrough',
@@ -162,6 +165,7 @@ describe('lb4 relation HasManyThrough', /** @this {Mocha.Suite} */ function () {
         throughModel: 'Appointment',
         sourceKeyOnThrough: 'customKeyFrom',
         targetKeyOnThrough: 'customKeyTo',
+        registerInclusionResolver: true,
       },
     ];
 
