@@ -20,6 +20,7 @@ import {
   Provider,
   transformValueOrPromise,
 } from '@loopback/context';
+import {inspect} from 'util';
 import {CoreTags} from './keys';
 
 /**
@@ -81,7 +82,7 @@ export function service(
           serviceType = MetadataInspector.getDesignTypeForMethod(
             injection.target,
             injection.member!,
-          ).parameterTypes[injection.methodDescriptorOrParameterIndex];
+          )?.parameterTypes[injection.methodDescriptorOrParameterIndex];
         } else {
           serviceType = MetadataInspector.getDesignTypeForProperty(
             injection.target,
@@ -89,6 +90,20 @@ export function service(
           );
         }
       }
+      if (serviceType === undefined) {
+        const targetName =
+          typeof injection.target === 'function'
+            ? injection.target.name
+            : typeof injection.target === 'object'
+            ? injection.target.constructor.name
+            : inspect(injection.target);
+        const msg =
+          `No design-time type metadata found while inspecting ${targetName}.${injection.member!}. ` +
+          'You can either use `@service(ServiceClass)` or ensure `emitDecoratorMetadata` is enabled in your TypeScript configuration. ' +
+          'Run `tsc --showConfig` to print the final TypeScript configuration of your project.';
+        throw new Error(msg);
+      }
+
       if (serviceType === Object || serviceType === Array) {
         throw new Error(
           'Service class cannot be inferred from design type. Use @service(ServiceClass).',
