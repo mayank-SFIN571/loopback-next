@@ -13,6 +13,7 @@ import {
   ContextTags,
   ContextView,
   createBindingFromClass,
+  DecoratorFactory,
   inject,
   InjectionMetadata,
   isProviderClass,
@@ -20,7 +21,6 @@ import {
   Provider,
   transformValueOrPromise,
 } from '@loopback/context';
-import {inspect} from 'util';
 import {CoreTags} from './keys';
 
 /**
@@ -91,14 +91,13 @@ export function service(
         }
       }
       if (serviceType === undefined) {
-        const targetName =
-          typeof injection.target === 'function'
-            ? injection.target.name
-            : typeof injection.target === 'object'
-            ? injection.target.constructor.name
-            : inspect(injection.target);
+        const targetName = DecoratorFactory.getTargetName(
+          injection.target,
+          injection.member,
+          injection.methodDescriptorOrParameterIndex,
+        );
         const msg =
-          `No design-time type metadata found while inspecting ${targetName}.${injection.member!}. ` +
+          `No design-time type metadata found while inspecting ${targetName}. ` +
           'You can either use `@service(ServiceClass)` or ensure `emitDecoratorMetadata` is enabled in your TypeScript configuration. ' +
           'Run `tsc --showConfig` to print the final TypeScript configuration of your project.';
         throw new Error(msg);

@@ -3,7 +3,7 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 import debugModule from 'debug';
-import {inspect} from 'util';
+import {DecoratorFactory} from './decorator-factory';
 import {NamespacedReflect, Reflector} from './reflect';
 import {
   DecoratorType,
@@ -245,25 +245,18 @@ export class MetadataInspector {
       methodName,
     );
 
-    /* istanbul ignore next */
     if (
       type === undefined &&
       parameterTypes === undefined &&
       returnType === undefined
     ) {
+      /* istanbul ignore next */
       if (debug.enabled) {
-        const targetName =
-          typeof target === 'function'
-            ? target.name
-            : typeof target === 'object'
-            ? target.constructor.name
-            : inspect(target);
-        const propName = methodName ? `.${methodName}` : ' constructor';
+        const targetName = DecoratorFactory.getTargetName(target, methodName);
         debug(
-          'No design-time type metadata found while inspecting %s%s. ' +
+          'No design-time type metadata found while inspecting %s. ' +
             'Did you forget to enable TypeScript compiler option `emitDecoratorMetadata`?',
           targetName,
-          propName,
         );
       }
 
