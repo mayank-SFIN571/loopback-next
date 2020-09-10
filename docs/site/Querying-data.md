@@ -365,7 +365,7 @@ For example:
 
 #### Prohibits hidden/protected properties from being searched
 
-[Hidden or protected properties](https://loopback.io/doc/en/lb3/Model-definition-JSON-file.html#hidden-properties)
+[Hidden or protected properties](Model.md#hidden-properties)
 can expose sensitive information if they are allowed to be searched. LoopBack
 introduces `prohibitHiddenPropertiesInQuery` setting at datasource/model level
 to control if hidden/protected properties can be used in the `where` object. By
