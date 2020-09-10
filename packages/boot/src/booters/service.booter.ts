@@ -85,6 +85,6 @@ function isBindableClass(cls: Constructor<unknown>) {
     debug('Provider class found: %s', cls.name);
     return true;
   }
-  debug('Skip class not decorated with @bind: %s', cls.name);
+  debug('Skip class not decorated with @injectable: %s', cls.name);
   return false;
 }

@@ -265,8 +265,8 @@ Discovers and binds remote service proxies or local service classes or providers
 using `app.service()`.
 
 **IMPORTANT:** For a class to be recognized by `ServiceBooter` as a service
-provider, it either has to be decorated with `@bind` or the class name must end
-with `Provider` suffix and its prototype must have a `value()` method.
+provider, it either has to be decorated with `@injectable` or the class name
+must end with `Provider` suffix and its prototype must have a `value()` method.
 
 #### Options
 
